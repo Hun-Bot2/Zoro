@@ -13,7 +13,7 @@ import {
   WalletCards,
 } from "lucide-react";
 
-import { cn } from "./Section";
+import { cn } from "./design-system";
 
 const monthBars = [58, 76, 63, 84, 70, 95, 82, 101, 74, 93, 86, 111];
 const railDots = ["#00d4ff", "#00e095", "#ffb84d", "#ff5b7f", "#7c5cff"];
@@ -28,7 +28,7 @@ export function HeroCommerceVisual() {
       <div className="hero-ribbon hero-ribbon-b" />
       <div className="hero-ribbon hero-ribbon-c" />
 
-      <div className="absolute left-[3%] top-12 hidden w-[210px] rotate-[-8deg] rounded-[28px] bg-ink p-3 shadow-stripe sm:block lg:left-0 lg:top-24">
+      <div className="absolute left-[3%] top-12 hidden w-[210px] rotate-[-8deg] rounded-[28px] bg-ink p-3 shadow-stripe dark:bg-slate-950 sm:block lg:left-0 lg:top-24">
         <div className="rounded-[22px] bg-[#061a2f] p-4 text-white">
           <div className="flex items-center justify-between">
             <div className="h-8 w-8 rounded-full bg-gradient-to-br from-cyan-300 to-emerald-300" />
@@ -48,12 +48,12 @@ export function HeroCommerceVisual() {
         </div>
       </div>
 
-      <div className="absolute right-[3%] top-1 w-[285px] rounded-[30px] bg-white p-3 shadow-stripe sm:w-[350px] lg:right-0 lg:top-4 lg:w-[430px]">
-        <div className="rounded-[22px] border border-slate-100 bg-slate-50 p-4 sm:p-5">
+      <div className="absolute right-[3%] top-1 w-[285px] rounded-[30px] bg-surface p-3 shadow-stripe sm:w-[350px] lg:right-0 lg:top-4 lg:w-[430px]">
+        <div className="rounded-[22px] border border-line bg-surface-muted p-4 sm:p-5">
           <div className="flex items-center justify-between gap-3">
             <div>
               <p className="text-xs font-semibold text-violet">Global revenue</p>
-              <p className="mt-1 text-2xl font-semibold text-ink sm:text-3xl">$12.84M</p>
+              <p className="mt-1 text-2xl font-semibold text-title sm:text-3xl">$12.84M</p>
             </div>
             <div className="rounded-full bg-emerald-50 px-3 py-1 text-xs font-semibold text-emerald-700">
               +18.2%
@@ -77,13 +77,13 @@ export function HeroCommerceVisual() {
           </div>
           <div className="mt-5 grid gap-3 sm:grid-cols-3">
             {["Payments", "Billing", "Payouts"].map((label, index) => (
-              <div key={label} className="rounded-2xl bg-white p-3 shadow-[0_8px_24px_rgba(15,23,42,0.07)]">
+              <div key={label} className="rounded-2xl bg-surface p-3 shadow-[0_8px_24px_rgba(15,23,42,0.07)] dark:shadow-none">
                 <div
                   className="mb-2 h-2.5 rounded-full"
                   style={{ backgroundColor: railDots[index] }}
                 />
-                <p className="text-[11px] font-semibold text-slate-500">{label}</p>
-                <p className="mt-1 text-sm font-semibold text-ink">
+                <p className="text-[11px] font-semibold text-muted">{label}</p>
+                <p className="mt-1 text-sm font-semibold text-title">
                   {["$7.4M", "$3.1M", "$2.3M"][index]}
                 </p>
               </div>
@@ -92,15 +92,15 @@ export function HeroCommerceVisual() {
         </div>
       </div>
 
-      <div className="absolute bottom-4 left-[2%] w-[290px] rounded-[26px] bg-white p-4 shadow-stripe sm:bottom-8 sm:left-[16%] sm:w-[360px] lg:bottom-14 lg:left-[12%]">
+      <div className="absolute bottom-4 left-[2%] w-[290px] rounded-[26px] bg-surface p-4 shadow-stripe sm:bottom-8 sm:left-[16%] sm:w-[360px] lg:bottom-14 lg:left-[12%]">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700">
+            <span className="flex h-10 w-10 items-center justify-center rounded-2xl bg-cyan-50 text-cyan-700 dark:bg-cyan-400/10 dark:text-cyan-200">
               <ShieldCheck className="h-5 w-5" />
             </span>
             <div>
-              <p className="text-sm font-semibold text-ink">Risk review queue</p>
-              <p className="text-xs text-slate-500">All regions active</p>
+              <p className="text-sm font-semibold text-title">Risk review queue</p>
+              <p className="text-xs text-muted">All regions active</p>
             </div>
           </div>
           <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
@@ -110,16 +110,16 @@ export function HeroCommerceVisual() {
         <div className="mt-4 space-y-2">
           {["High-value checkout", "New seller onboarding", "Instant payout request"].map(
             (item, index) => (
-              <div key={item} className="flex items-center justify-between rounded-2xl bg-slate-50 px-3 py-2">
-                <span className="text-xs font-medium text-slate-600">{item}</span>
-                <span className="text-xs font-semibold text-ink">{[97, 88, 94][index]}%</span>
+              <div key={item} className="flex items-center justify-between rounded-2xl bg-surface-muted px-3 py-2">
+                <span className="text-xs font-medium text-body">{item}</span>
+                <span className="text-xs font-semibold text-title">{[97, 88, 94][index]}%</span>
               </div>
             ),
           )}
         </div>
       </div>
 
-      <div className="absolute bottom-2 right-[2%] hidden w-[165px] rotate-[8deg] rounded-[26px] bg-white p-3 shadow-stripe sm:block lg:bottom-0 lg:right-[12%]">
+      <div className="absolute bottom-2 right-[2%] hidden w-[165px] rotate-[8deg] rounded-[26px] bg-surface p-3 shadow-stripe sm:block lg:bottom-0 lg:right-[12%]">
         <div className="rounded-[20px] bg-gradient-to-br from-amber-100 via-white to-cyan-100 p-3">
           <div className="flex items-center justify-between text-ink">
             <LockKeyhole className="h-5 w-5" />
@@ -174,26 +174,26 @@ export function PaymentsMiniVisual() {
 
 export function BillingMiniVisual() {
   return (
-    <div className="mt-8 rounded-[24px] bg-white p-4 shadow-[0_16px_45px_rgba(15,23,42,0.1)]">
+    <div className="mt-8 rounded-[24px] bg-surface p-4 shadow-[0_16px_45px_rgba(15,23,42,0.1)] dark:shadow-none">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-xs font-semibold text-violet">Pro Plan</p>
-          <p className="text-2xl font-semibold text-ink">$0.95</p>
+          <p className="text-2xl font-semibold text-title">$0.95</p>
         </div>
-        <ChevronDown className="h-5 w-5 text-slate-400" />
+        <ChevronDown className="h-5 w-5 text-muted" />
       </div>
-      <div className="mt-5 rounded-2xl bg-skyglass p-3">
-        <div className="flex items-center justify-between text-xs font-semibold text-ink">
+      <div className="mt-5 rounded-2xl bg-skyglass p-3 dark:bg-cyan-400/10">
+        <div className="flex items-center justify-between text-xs font-semibold text-title">
           <span>Tokens used</span>
           <span>74%</span>
         </div>
-        <div className="mt-3 h-2 rounded-full bg-white">
+        <div className="mt-3 h-2 rounded-full bg-white dark:bg-slate-700">
           <div className="h-2 w-[74%] rounded-full bg-gradient-to-r from-emerald-400 to-cyan-500" />
         </div>
       </div>
       <div className="mt-4 grid grid-cols-3 gap-2">
         {["Credits", "Seats", "Overage"].map((item) => (
-          <span key={item} className="rounded-xl bg-slate-50 px-2 py-2 text-center text-xs font-medium text-slate-600">
+          <span key={item} className="rounded-xl bg-surface-muted px-2 py-2 text-center text-xs font-medium text-body">
             {item}
           </span>
         ))}
@@ -204,25 +204,25 @@ export function BillingMiniVisual() {
 
 export function PlatformMiniVisual() {
   return (
-    <div className="mt-8 rounded-[24px] bg-white p-4 shadow-[0_16px_45px_rgba(15,23,42,0.1)]">
+    <div className="mt-8 rounded-[24px] bg-surface p-4 shadow-[0_16px_45px_rgba(15,23,42,0.1)] dark:shadow-none">
       <div className="flex items-center gap-3">
         <span className="flex h-11 w-11 items-center justify-center rounded-2xl bg-violet/10 text-violet">
           <WalletCards className="h-5 w-5" />
         </span>
         <div>
-          <p className="text-sm font-semibold text-ink">Connected accounts</p>
-          <p className="text-xs text-slate-500">Risk, payout, and tax status</p>
+          <p className="text-sm font-semibold text-title">Connected accounts</p>
+          <p className="text-xs text-muted">Risk, payout, and tax status</p>
         </div>
       </div>
       <div className="mt-5 space-y-2">
         {["Studio North", "Vector Supply", "Lumen Market"].map((account, index) => (
-          <div key={account} className="flex items-center justify-between rounded-2xl bg-slate-50 px-3 py-3">
+          <div key={account} className="flex items-center justify-between rounded-2xl bg-surface-muted px-3 py-3">
             <div className="flex items-center gap-3">
               <span
                 className="h-8 w-8 rounded-full"
                 style={{ backgroundColor: railDots[index + 1] }}
               />
-              <span className="text-xs font-semibold text-slate-700">{account}</span>
+              <span className="text-xs font-semibold text-body">{account}</span>
             </div>
             <CheckCircle2 className="h-4 w-4 text-emerald-500" />
           </div>
@@ -234,17 +234,17 @@ export function PlatformMiniVisual() {
 
 export function AgenticMiniVisual() {
   return (
-    <div className="mt-8 overflow-hidden rounded-[24px] bg-gradient-to-br from-rose-50 via-white to-amber-50 p-4 shadow-[0_16px_45px_rgba(15,23,42,0.1)]">
+    <div className="mt-8 overflow-hidden rounded-[24px] bg-gradient-to-br from-rose-50 via-white to-amber-50 p-4 shadow-[0_16px_45px_rgba(15,23,42,0.1)] dark:from-rose-950/40 dark:via-surface dark:to-amber-950/40 dark:shadow-none">
       <div className="flex items-center justify-between">
         <span className="rounded-full bg-rose-100 px-3 py-1 text-xs font-semibold text-rose-700">
           Agent checkout
         </span>
         <Sparkles className="h-5 w-5 text-amber-500" />
       </div>
-      <div className="mt-5 rounded-2xl bg-white p-3 shadow-sm">
+      <div className="mt-5 rounded-2xl bg-surface p-3 shadow-sm dark:shadow-none">
         <div className="flex items-center justify-between">
-          <p className="text-xs font-semibold text-ink">Travel bundle</p>
-          <p className="text-sm font-semibold text-ink">$428</p>
+          <p className="text-xs font-semibold text-title">Travel bundle</p>
+          <p className="text-sm font-semibold text-title">$428</p>
         </div>
         <div className="mt-3 grid grid-cols-3 gap-2">
           {["flight", "hotel", "pass"].map((item, index) => (
@@ -272,7 +272,7 @@ export function AgenticMiniVisual() {
 
 export function IssuingMiniVisual() {
   return (
-    <div className="mt-8 rounded-[24px] bg-slate-950 p-4 text-white shadow-[0_16px_45px_rgba(15,23,42,0.1)]">
+    <div className="mt-8 rounded-[24px] bg-slate-950 p-4 text-white shadow-[0_16px_45px_rgba(15,23,42,0.1)] dark:shadow-none">
       <div className="rounded-[20px] bg-gradient-to-br from-fuchsia-400 via-violet-500 to-indigo-500 p-4">
         <div className="flex items-center justify-between">
           <WalletCards className="h-6 w-6" />
@@ -294,9 +294,9 @@ export function IssuingMiniVisual() {
 
 export function MoneyMovementMiniVisual() {
   return (
-    <div className="mt-8 rounded-[24px] bg-white p-4 shadow-[0_16px_45px_rgba(15,23,42,0.1)]">
+    <div className="mt-8 rounded-[24px] bg-surface p-4 shadow-[0_16px_45px_rgba(15,23,42,0.1)] dark:shadow-none">
       <div className="flex items-center justify-between">
-        <p className="text-sm font-semibold text-ink">Borderless ledger</p>
+        <p className="text-sm font-semibold text-title">Borderless ledger</p>
         <span className="rounded-full bg-emerald-50 px-2.5 py-1 text-xs font-semibold text-emerald-700">
           live
         </span>
@@ -307,8 +307,8 @@ export function MoneyMovementMiniVisual() {
           ["GBP", "INR", "$44K"],
           ["CAD", "MXN", "$31K"],
         ].map(([from, to, amount], index) => (
-          <div key={`${from}-${to}`} className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 rounded-2xl bg-slate-50 px-3 py-3">
-            <span className="text-xs font-semibold text-ink">{from}</span>
+          <div key={`${from}-${to}`} className="grid grid-cols-[1fr_auto_1fr] items-center gap-2 rounded-2xl bg-surface-muted px-3 py-3">
+            <span className="text-xs font-semibold text-title">{from}</span>
             <ArrowUpRight
               className={cn(
                 "h-4 w-4",
@@ -317,8 +317,8 @@ export function MoneyMovementMiniVisual() {
                 index === 2 && "text-amber-500",
               )}
             />
-            <span className="text-right text-xs font-semibold text-ink">{to}</span>
-            <span className="col-span-3 text-xs text-slate-500">{amount} settled today</span>
+            <span className="text-right text-xs font-semibold text-title">{to}</span>
+            <span className="col-span-3 text-xs text-muted">{amount} settled today</span>
           </div>
         ))}
       </div>
@@ -438,11 +438,11 @@ export function NewsVisual() {
   return (
     <div className="relative h-44 overflow-hidden rounded-[28px] bg-gradient-to-br from-[#0a2540] via-[#2563eb] to-[#00d4ff] p-4">
       <div className="absolute -right-8 -top-8 h-32 w-32 rounded-full bg-white/20" />
-      <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/90 p-3 shadow-panel">
+      <div className="absolute bottom-4 left-4 right-4 rounded-2xl bg-white/90 p-3 shadow-panel dark:bg-slate-950/85">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-xs font-semibold text-slate-500">Internet economy</p>
-            <p className="mt-1 text-lg font-semibold text-ink">$1.2T</p>
+            <p className="text-xs font-semibold text-muted">Internet economy</p>
+            <p className="mt-1 text-lg font-semibold text-title">$1.2T</p>
           </div>
           <ArrowUpRight className="h-5 w-5 text-violet" />
         </div>
@@ -458,7 +458,7 @@ export function NewsVisual() {
 
 export function StartupVisual() {
   return (
-    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-white via-sky-50 to-emerald-50 p-5 shadow-panel">
+    <div className="relative overflow-hidden rounded-[32px] bg-gradient-to-br from-white via-sky-50 to-emerald-50 p-5 shadow-panel dark:from-surface dark:via-surface-muted dark:to-emerald-950/35">
       <div className="flex items-center justify-between">
         <span className="rounded-full bg-violet/10 px-3 py-1 text-xs font-semibold text-violet">
           Startup suite
@@ -466,14 +466,14 @@ export function StartupVisual() {
         <CircleDollarSign className="h-6 w-6 text-emerald-500" />
       </div>
       <div className="mt-16">
-        <p className="text-4xl font-semibold text-ink">$0 to $10M</p>
-        <p className="mt-2 text-sm leading-6 text-slate-600">
+        <p className="text-4xl font-semibold text-title">$0 to $10M</p>
+        <p className="mt-2 text-sm leading-6 text-body">
           Incorporation, revenue collection, tax setup, and reporting grow together.
         </p>
       </div>
       <div className="mt-6 flex items-center gap-2">
         {["Atlas", "Billing", "Tax", "Radar"].map((item) => (
-          <span key={item} className="rounded-full bg-white px-3 py-1 text-xs font-semibold text-slate-600 shadow-sm">
+          <span key={item} className="rounded-full bg-surface px-3 py-1 text-xs font-semibold text-body shadow-sm dark:shadow-none">
             {item}
           </span>
         ))}
