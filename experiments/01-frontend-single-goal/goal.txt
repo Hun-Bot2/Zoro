@@ -1,0 +1,3 @@
+Prepare a clean, minimal Next.js frontend environment for the ZORO reconstruction experiment.
+
+Do not implement the frontend reconstruction in this step.
