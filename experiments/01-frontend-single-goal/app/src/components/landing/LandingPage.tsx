@@ -2,16 +2,13 @@ import {
   ArrowUpRight,
   Check,
   ChevronRight,
-  Menu,
   MoveRight,
   PlayCircle,
   Search,
 } from "lucide-react";
 
-import { ThemeToggle } from "@/components/ThemeToggle";
 import {
   ArrowButton,
-  BrandMark,
   Container,
   IconFrame,
   Pill,
@@ -20,6 +17,8 @@ import {
   SurfaceCard,
   cn,
 } from "@/components/design-system";
+import { SiteFooter } from "@/components/layout/SiteFooter";
+import { SiteHeader } from "@/components/layout/SiteHeader";
 import {
   AgenticMiniVisual,
   BillingMiniVisual,
@@ -37,9 +36,7 @@ import {
   caseStudies,
   commerceStats,
   developerPoints,
-  footerColumns,
   integrationPaths,
-  navItems,
   newsItems,
   productCards,
   solutionTabs,
@@ -49,92 +46,15 @@ import {
 export function LandingPage() {
   return (
     <main className="min-h-screen bg-page text-body transition-colors duration-300">
-      <Header />
+      <SiteHeader />
       <Hero />
       <ProductSuite />
       <GlobalCommerce />
       <BusinessScale />
       <DeveloperInfrastructure />
       <NewsAndCta />
-      <Footer />
+      <SiteFooter />
     </main>
-  );
-}
-
-function Header() {
-  return (
-    <header className="sticky top-0 z-50 border-b border-line/70 bg-surface/80 backdrop-blur-xl transition-colors duration-300">
-      <Container className="flex h-16 items-center justify-between">
-        <a
-          href="#"
-          className="flex items-center gap-2 text-lg font-semibold text-title"
-          aria-label="Zoro home"
-        >
-          <BrandMark />
-          Zoro
-        </a>
-
-        <nav aria-label="Primary navigation" className="hidden items-center gap-7 lg:flex">
-          {navItems.map((item) => (
-            <a
-              key={item}
-              href={`#${item.toLowerCase()}`}
-              className="text-sm font-semibold text-title/70 transition hover:text-title"
-            >
-              {item}
-            </a>
-          ))}
-        </nav>
-
-        <div className="hidden items-center gap-4 lg:flex">
-          <ThemeToggle />
-          <a href="#" className="text-sm font-semibold text-title/70 transition hover:text-title">
-            Sign in
-          </a>
-          <ArrowButton className="h-9 px-4" href="#start">
-            Start now
-          </ArrowButton>
-        </div>
-
-        <div className="flex items-center gap-2 lg:hidden">
-          <ThemeToggle />
-          <details className="relative">
-            <summary className="flex h-10 w-10 cursor-pointer list-none items-center justify-center rounded-full bg-ink text-white transition dark:bg-white dark:text-ink [&::-webkit-details-marker]:hidden">
-              <Menu aria-hidden="true" className="h-5 w-5" />
-              <span className="sr-only">Open navigation menu</span>
-            </summary>
-            <div className="absolute right-0 mt-3 w-72 rounded-[24px] border border-line bg-surface p-3 shadow-stripe">
-              <div className="space-y-1">
-                {navItems.map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className="flex items-center justify-between rounded-2xl px-3 py-3 text-sm font-semibold text-title transition hover:bg-surface-muted"
-                  >
-                    {item}
-                    <ChevronRight aria-hidden="true" className="h-4 w-4 text-muted" />
-                  </a>
-                ))}
-              </div>
-              <div className="mt-3 grid grid-cols-2 gap-2">
-                <a
-                  className="rounded-full bg-surface-muted px-3 py-2 text-center text-sm font-semibold text-title"
-                  href="#"
-                >
-                  Sign in
-                </a>
-                <a
-                  className="rounded-full bg-ink px-3 py-2 text-center text-sm font-semibold text-white dark:bg-white dark:text-ink"
-                  href="#start"
-                >
-                  Start now
-                </a>
-              </div>
-            </div>
-          </details>
-        </div>
-      </Container>
-    </header>
   );
 }
 
@@ -156,8 +76,8 @@ function Hero() {
             Accept payments, build billing models, move money, and operate financial products from one composable platform.
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
-            <ArrowButton href="#start">Start now</ArrowButton>
-            <ArrowButton href="#developers" variant="ghost">
+            <ArrowButton href="/signup">Start now</ArrowButton>
+            <ArrowButton href="/solutions" variant="ghost">
               Contact sales
             </ArrowButton>
           </div>
@@ -397,10 +317,10 @@ function NewsAndCta() {
               Create an account instantly or design a custom revenue package.
             </h2>
             <div className="mt-7 flex flex-wrap gap-3">
-              <ArrowButton href="#" variant="light">
+              <ArrowButton href="/signup" variant="light">
                 Start now
               </ArrowButton>
-              <ArrowButton href="#" variant="ghost" className="text-white hover:text-cyan-200">
+              <ArrowButton href="/solutions" variant="ghost" className="text-white hover:text-cyan-200">
                 Contact sales
               </ArrowButton>
             </div>
@@ -444,44 +364,5 @@ function MiniNewsVisual({ index }: { index: number }) {
         ))}
       </div>
     </div>
-  );
-}
-
-function Footer() {
-  return (
-    <footer className="bg-page py-12 transition-colors duration-300">
-      <Container className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr]">
-        <div>
-          <a
-            href="#"
-            className="flex items-center gap-2 text-lg font-semibold text-title"
-            aria-label="Zoro home"
-          >
-            <BrandMark />
-            Zoro
-          </a>
-          <p className="mt-5 max-w-sm text-sm leading-7 text-body">
-            A Stripe-inspired reconstruction exercise built with Next.js, TypeScript, and Tailwind CSS.
-          </p>
-          <p className="mt-6 text-sm text-muted">© 2026 Zoro Labs</p>
-        </div>
-        <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
-          {footerColumns.map((column) => (
-            <div key={column.heading}>
-              <h3 className="text-sm font-semibold text-title">{column.heading}</h3>
-              <ul className="mt-4 space-y-3">
-                {column.links.map((link) => (
-                  <li key={link}>
-                    <a href="#" className="text-sm text-body transition hover:text-title">
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-      </Container>
-    </footer>
   );
 }
