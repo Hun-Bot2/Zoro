@@ -36,6 +36,7 @@ html {
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: clip;
   background: rgb(var(--color-page));
   color: rgb(var(--color-body));
   font-family: var(--font-sans);
@@ -49,8 +50,39 @@ a {
   text-decoration: none;
 }
 
+button,
+input,
+summary,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
 summary {
   outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #625afa;
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: fixed;
+  left: 1rem;
+  top: 1rem;
+  z-index: 100;
+  transform: translateY(-140%);
+  border-radius: 999px;
+  background: rgb(var(--color-title));
+  color: rgb(var(--color-page));
+  padding: 0.625rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  transition: transform 180ms ease;
+}
+
+.skip-link:focus-visible {
+  transform: translateY(0);
 }
 
 .hero-stage {
@@ -153,5 +185,16 @@ summary {
   }
   50% {
     transform: skewY(-12deg) rotate(-4deg) translateY(-10px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
   }
 }

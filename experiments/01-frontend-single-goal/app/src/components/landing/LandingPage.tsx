@@ -45,7 +45,7 @@ import {
 
 export function LandingPage() {
   return (
-    <main className="min-h-screen bg-page text-body transition-colors duration-300">
+    <main id="main-content" className="min-h-screen bg-page text-body transition-colors duration-300">
       <SiteHeader />
       <Hero />
       <ProductSuite />

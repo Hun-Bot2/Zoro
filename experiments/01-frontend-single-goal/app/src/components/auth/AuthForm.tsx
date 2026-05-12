@@ -20,6 +20,7 @@ type FormState = {
 };
 
 type FormErrors = Partial<Record<keyof FormState, string>>;
+type SubmitStatus = "idle" | "submitting" | "error";
 
 const initialState: FormState = {
   name: "",
@@ -31,6 +32,8 @@ const initialState: FormState = {
 
 function validateForm(values: FormState, mode: AuthMode) {
   const errors: FormErrors = {};
+  const email = values.email.trim();
+  const password = values.password.trim();
 
   if (mode === "signup" && values.name.trim().length < 2) {
     errors.name = "Enter your full name.";
@@ -40,12 +43,14 @@ function validateForm(values: FormState, mode: AuthMode) {
     errors.company = "Enter a company name.";
   }
 
-  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(values.email.trim())) {
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email) || email.length > 254) {
     errors.email = "Enter a valid work email.";
   }
 
-  if (values.password.length < 8) {
+  if (password.length < 8) {
     errors.password = "Use at least 8 characters.";
+  } else if (!/[A-Za-z]/.test(password) || !/\d/.test(password)) {
+    errors.password = "Use letters and numbers.";
   }
 
   if (mode === "signup" && values.confirmPassword !== values.password) {
@@ -55,11 +60,22 @@ function validateForm(values: FormState, mode: AuthMode) {
   return errors;
 }
 
+function getSafeNextPath() {
+  const next = new URLSearchParams(window.location.search).get("next");
+
+  if (!next || !next.startsWith("/") || next.startsWith("//")) {
+    return "/dashboard";
+  }
+
+  return next;
+}
+
 export function AuthPage({ mode }: { mode: AuthMode }) {
   const router = useRouter();
   const { isReady, login, signup, user } = useAuth();
   const [values, setValues] = useState<FormState>(initialState);
   const [errors, setErrors] = useState<FormErrors>({});
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>("idle");
 
   const isSignup = mode === "signup";
   const title = isSignup ? "Create your Zoro workspace." : "Sign in to your Zoro workspace.";
@@ -76,10 +92,12 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
   function updateField(field: keyof FormState, value: string) {
     setValues((current) => ({ ...current, [field]: value }));
     setErrors((current) => ({ ...current, [field]: undefined }));
+    setSubmitStatus("idle");
   }
 
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    setSubmitStatus("idle");
 
     const nextErrors = validateForm(values, mode);
     setErrors(nextErrors);
@@ -88,24 +106,35 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
       return;
     }
 
-    const nextPath = new URLSearchParams(window.location.search).get("next") || "/dashboard";
+    const nextPath = getSafeNextPath();
     const payload = {
-      email: values.email,
-      name: values.name,
-      company: values.company,
+      email: values.email.trim(),
+      name: values.name.trim(),
+      company: values.company.trim(),
     };
 
-    if (isSignup) {
-      signup(payload);
-    } else {
-      login(payload);
-    }
+    try {
+      setSubmitStatus("submitting");
+      await new Promise((resolve) => window.setTimeout(resolve, 120));
 
-    router.push(nextPath);
+      if (payload.email.toLowerCase().startsWith("error@")) {
+        throw new Error("Simulated auth service failure.");
+      }
+
+      if (isSignup) {
+        signup(payload);
+      } else {
+        login(payload);
+      }
+
+      router.push(nextPath);
+    } catch {
+      setSubmitStatus("error");
+    }
   }
 
   return (
-    <main className="min-h-screen bg-page text-body transition-colors duration-300">
+    <main id="main-content" className="min-h-screen bg-page text-body transition-colors duration-300">
       <SiteHeader />
       <section className="hero-stage relative overflow-hidden">
         <div className="hero-grid absolute inset-0" />
@@ -176,11 +205,27 @@ export function AuthPage({ mode }: { mode: AuthMode }) {
                 />
               ) : null}
 
+              {submitStatus === "error" ? (
+                <div
+                  role="alert"
+                  className="rounded-2xl border border-rose-400/30 bg-rose-500/10 px-4 py-3 text-sm font-medium text-rose-500"
+                >
+                  We could not complete the simulated auth request. Use a different email and try again.
+                </div>
+              ) : null}
+
               <button
                 type="submit"
-                className="flex h-11 w-full items-center justify-center rounded-full bg-ink px-5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-marine focus:outline-none focus-visible:ring-2 focus-visible:ring-violet focus-visible:ring-offset-2 focus-visible:ring-offset-page dark:bg-white dark:text-ink"
+                disabled={submitStatus === "submitting"}
+                className="flex h-11 w-full items-center justify-center rounded-full bg-ink px-5 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-marine focus:outline-none focus-visible:ring-2 focus-visible:ring-violet focus-visible:ring-offset-2 focus-visible:ring-offset-page disabled:cursor-not-allowed disabled:opacity-70 dark:bg-white dark:text-ink"
               >
-                {isSignup ? "Create account" : "Sign in"}
+                {submitStatus === "submitting"
+                  ? isSignup
+                    ? "Creating account..."
+                    : "Signing in..."
+                  : isSignup
+                    ? "Create account"
+                    : "Sign in"}
               </button>
 
               <p className="text-center text-sm text-body">
@@ -231,6 +276,7 @@ function Field({
         type={type}
         value={value}
         autoComplete={autoComplete}
+        required
         aria-invalid={Boolean(error)}
         aria-describedby={error ? `${id}-error` : undefined}
         onChange={(event) => onChange(event.target.value)}

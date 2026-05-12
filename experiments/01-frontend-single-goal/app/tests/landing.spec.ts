@@ -58,6 +58,37 @@ for (const themeMode of themeModes) {
   });
 }
 
+test("supports keyboard navigation and keyboard theme toggling", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "Keyboard navigation is covered on desktop; mobile coverage focuses on responsive rendering.");
+
+  await page.addInitScript(() => {
+    window.localStorage.removeItem("zoro-auth-session");
+    window.localStorage.setItem("zoro-theme", "light");
+  });
+
+  await page.goto("/");
+
+  const skipLink = page.getByRole("link", { name: "Skip to content" });
+  await page.keyboard.press("Tab");
+  await expect(skipLink).toBeFocused();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/#main-content$/);
+
+  const productsLink = page
+    .getByRole("navigation", { name: /Primary navigation/i })
+    .getByRole("link", { name: "Products" });
+  await productsLink.focus();
+  await page.keyboard.press("Enter");
+  await expect(page).toHaveURL(/\/products$/);
+
+  const toggle = page.locator('button[aria-label="Toggle color theme"]:visible').first();
+  await toggle.focus();
+  await page.keyboard.press("Enter");
+  await expect
+    .poll(() => page.evaluate(() => document.documentElement.classList.contains("dark")))
+    .toBe(true);
+});
+
 test("navigates marketing routes and completes the auth flow", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "Full auth flow is covered on desktop; responsive rendering is covered separately.");
 
@@ -116,6 +147,11 @@ test("navigates marketing routes and completes the auth flow", async ({ page }, 
   await page.getByRole("button", { name: "Sign in" }).click();
   await expect(page.getByText("Enter a valid work email.")).toBeVisible();
   await expect(page.getByText("Use at least 8 characters.")).toBeVisible();
+
+  await page.getByLabel("Work email").fill("error@example.com");
+  await page.getByLabel("Password").fill("password123");
+  await page.getByRole("button", { name: "Sign in" }).click();
+  await expect(page.getByText(/could not complete the simulated auth request/i)).toBeVisible();
 
   await page.getByLabel("Work email").fill("pilot@example.com");
   await page.getByLabel("Password").fill("password123");

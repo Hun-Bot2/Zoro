@@ -48,7 +48,7 @@ function DashboardContent() {
   }
 
   return (
-    <main className="min-h-screen bg-page text-body transition-colors duration-300">
+    <main id="main-content" className="min-h-screen bg-page text-body transition-colors duration-300">
       <SiteHeader />
       <section className="bg-ink py-14 dark:bg-[#061427]">
         <Container className="grid gap-8 lg:grid-cols-[1fr_auto] lg:items-end">
@@ -158,6 +158,14 @@ function DashboardContent() {
             </SurfaceCard>
           ))}
         </div>
+
+        <SurfaceCard className="mt-10 p-6 text-center">
+          <p className="text-sm font-semibold text-emerald-500">Empty state</p>
+          <h2 className="mt-3 text-3xl font-semibold text-title">No disputes need attention.</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm leading-6 text-body">
+            When payment disputes, failed payouts, or urgent risk reviews appear, this dashboard will render them here with the same authenticated state.
+          </p>
+        </SurfaceCard>
       </SectionShell>
       <SiteFooter />
     </main>

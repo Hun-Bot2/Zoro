@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import { AuthProvider } from "@/components/auth/AuthProvider";
+import { createMetadata } from "@/lib/metadata";
 
 import "./globals.css";
 
@@ -19,9 +20,17 @@ const themeScript = `
 `;
 
 export const metadata: Metadata = {
-  title: "Zoro | Revenue Infrastructure",
-  description:
-    "A production-quality Stripe-inspired landing page built with Next.js, TypeScript, and Tailwind CSS.",
+  ...createMetadata({
+    title: "Zoro | Revenue Infrastructure",
+    description:
+      "A production-ready Stripe-inspired SaaS product experience built with Next.js, TypeScript, and Tailwind CSS.",
+  }),
+  applicationName: "Zoro",
+  title: {
+    default: "Zoro | Revenue Infrastructure",
+    template: "%s | Zoro",
+  },
+  category: "technology",
 };
 
 export default function RootLayout({
@@ -35,6 +44,9 @@ export default function RootLayout({
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body>
+        <a href="#main-content" className="skip-link">
+          Skip to content
+        </a>
         <AuthProvider>{children}</AuthProvider>
       </body>
     </html>

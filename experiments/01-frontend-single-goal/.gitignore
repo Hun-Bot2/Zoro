@@ -1,0 +1,5 @@
+app/.next/
+app/node_modules/
+app/playwright-report/
+app/test-results/
+app/tsconfig.tsbuildinfo

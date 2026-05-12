@@ -16,7 +16,7 @@ const icons = [LineChart, Network, ShieldCheck];
 
 export function MarketingRoutePage({ content }: { content: MarketingPageContent }) {
   return (
-    <main className="min-h-screen bg-page text-body transition-colors duration-300">
+    <main id="main-content" className="min-h-screen bg-page text-body transition-colors duration-300">
       <SiteHeader />
       <section className="hero-stage relative overflow-hidden">
         <div className="hero-grid absolute inset-0" />

@@ -19,7 +19,7 @@ export function ProtectedRoute({ children }: { children: ReactNode }) {
 
   if (!isReady || !user) {
     return (
-      <main className="min-h-screen bg-page py-24 text-body">
+      <main id="main-content" className="min-h-screen bg-page py-24 text-body">
         <Container>
           <SurfaceCard className="mx-auto max-w-md p-6 text-center">
             <p className="text-sm font-semibold text-violet">Checking access</p>

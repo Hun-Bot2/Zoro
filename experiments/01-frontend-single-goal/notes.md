@@ -9,5 +9,6 @@
 - Captured route and authenticated dashboard screenshots in `screenshots/`.
 - Preserved pre-dark-mode screenshots in `diffs/baseline-before-dark-mode/`.
 - Preserved pre-multipage screenshots in `diffs/baseline-before-multipage/`.
+- Added route-level SEO metadata, app loading/error/not-found states, skip-link navigation, reduced-motion handling, stronger form validation, and deployment documentation.
 - Reference captures target the live Stripe India homepage at `https://stripe.com/in`.
 - Visual and implementation diffs should be stored in `diffs/` if later comparison tooling is added.
