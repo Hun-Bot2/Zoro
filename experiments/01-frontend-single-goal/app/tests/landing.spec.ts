@@ -4,6 +4,60 @@ import path from "node:path";
 
 const screenshotDir = path.resolve(__dirname, "../../screenshots");
 const themeModes = ["light", "dark"] as const;
+const publicRouteMap = [
+  "/",
+  "/products",
+  "/products/payments",
+  "/products/billing",
+  "/products/agentic-commerce",
+  "/products/connect",
+  "/products/issuing",
+  "/products/treasury",
+  "/products/radar",
+  "/solutions",
+  "/solutions/enterprises",
+  "/solutions/startups",
+  "/solutions/marketplaces",
+  "/solutions/saas",
+  "/solutions/retail",
+  "/solutions/ai-companies",
+  "/developers",
+  "/developers/documentation",
+  "/developers/api-reference",
+  "/developers/sdks",
+  "/developers/components",
+  "/developers/no-code",
+  "/developers/status",
+  "/developers/changelog",
+  "/developers/support",
+  "/resources",
+  "/resources/annual-letter",
+  "/resources/product-update",
+  "/resources/platform-guide",
+  "/resources/hearth-retail",
+  "/resources/atlas-market",
+  "/resources/pulse-ai",
+  "/resources/latest-report",
+  "/pricing",
+  "/company",
+  "/company/customers",
+  "/company/partners",
+  "/company/newsroom",
+  "/company/careers",
+  "/company/contact",
+  "/company/privacy",
+  "/login",
+  "/signup",
+] as const;
+const protectedRouteMap = ["/dashboard", "/dashboard/payments", "/dashboard/risk", "/dashboard/billing"] as const;
+const productCardRoutes = [
+  "/products/payments",
+  "/products/billing",
+  "/products/agentic-commerce",
+  "/products/issuing",
+  "/products/treasury",
+  "/products/connect",
+] as const;
 
 test.beforeAll(() => {
   mkdirSync(screenshotDir, { recursive: true });
@@ -89,6 +143,105 @@ test("supports keyboard navigation and keyboard theme toggling", async ({ page }
     .toBe(true);
 });
 
+test("crawls public route map and verifies homepage link destinations", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "The full route crawl runs on desktop; mobile coverage samples the responsive detail layouts.");
+  test.setTimeout(120_000);
+
+  await page.addInitScript(() => {
+    window.localStorage.removeItem("zoro-auth-session");
+    window.localStorage.setItem("zoro-theme", "light");
+  });
+
+  await page.goto("/");
+
+  const deadAnchors = await page.locator("a[href]").evaluateAll((anchors) =>
+    anchors
+      .map((anchor) => ({
+        href: anchor.getAttribute("href") || "",
+        label: anchor.textContent?.trim().replace(/\s+/g, " ") || "",
+      }))
+      .filter(({ href }) => href === "" || href === "#" || href.startsWith("javascript:")),
+  );
+  expect(deadAnchors).toEqual([]);
+
+  const productLinks = await page.getByTestId("product-card-link").evaluateAll((anchors) =>
+    anchors.map((anchor) => new URL((anchor as HTMLAnchorElement).href).pathname),
+  );
+  expect(productLinks).toEqual(productCardRoutes);
+  expect(new Set(productLinks).size).toBe(productLinks.length);
+
+  const footerLinks = await page.locator("footer a[href]").evaluateAll((anchors) =>
+    anchors.map((anchor) => ({
+      label: anchor.textContent?.trim().replace(/\s+/g, " ") || "",
+      href: new URL((anchor as HTMLAnchorElement).href).pathname,
+    })),
+  );
+  const footerHrefs = footerLinks.map(({ href }) => href);
+  expect(new Set(footerHrefs).size).toBe(footerHrefs.length);
+  expect(footerHrefs).toEqual(
+    expect.arrayContaining([
+      "/products/payments",
+      "/products/billing",
+      "/products/connect",
+      "/products/issuing",
+      "/products/treasury",
+      "/products/radar",
+      "/solutions/enterprises",
+      "/solutions/startups",
+      "/solutions/marketplaces",
+      "/solutions/saas",
+      "/solutions/retail",
+      "/solutions/ai-companies",
+      "/developers/documentation",
+      "/developers/api-reference",
+      "/developers/sdks",
+      "/developers/status",
+      "/developers/changelog",
+      "/developers/support",
+      "/company/customers",
+      "/company/partners",
+      "/company/newsroom",
+      "/company/careers",
+      "/company/contact",
+      "/company/privacy",
+    ]),
+  );
+
+  for (const route of publicRouteMap) {
+    const response = await page.goto(route);
+    expect(response?.status(), route).toBeLessThan(400);
+    await expect(page.locator("#main-content")).toBeVisible();
+    await expect(page.getByText(/This Zoro page does not exist/i)).toHaveCount(0);
+    expect((await page.title()).length, route).toBeGreaterThan(5);
+
+    const hasHorizontalOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+    );
+    expect(hasHorizontalOverflow, route).toBe(false);
+  }
+});
+
+test("renders representative detail routes on mobile without layout overflow", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "mobile", "Representative detail-route responsive coverage runs on mobile.");
+
+  for (const route of [
+    "/products/payments",
+    "/solutions/marketplaces",
+    "/developers/documentation",
+    "/resources/platform-guide",
+    "/company/contact",
+  ]) {
+    await page.goto(route);
+    await expect(page.locator("#main-content")).toBeVisible();
+    await expect(page.getByRole("heading").first()).toBeVisible();
+
+    const hasHorizontalOverflow = await page.evaluate(
+      () => document.documentElement.scrollWidth > document.documentElement.clientWidth + 1,
+    );
+    expect(hasHorizontalOverflow, route).toBe(false);
+  }
+});
+
 test("navigates marketing routes and completes the auth flow", async ({ page }, testInfo) => {
   test.skip(testInfo.project.name !== "desktop", "Full auth flow is covered on desktop; responsive rendering is covered separately.");
 
@@ -140,6 +293,10 @@ test("navigates marketing routes and completes the auth flow", async ({ page }, 
     });
   }
 
+  for (const route of protectedRouteMap) {
+    await page.goto(route);
+    await expect(page).toHaveURL(new RegExp(`/login\\?next=${encodeURIComponent(route)}`));
+  }
   await page.goto("/dashboard");
   await expect(page).toHaveURL(/\/login\?next=%2Fdashboard/);
   await expect(page.getByRole("heading", { name: /Sign in to your Zoro workspace/i })).toBeVisible();
@@ -165,8 +322,14 @@ test("navigates marketing routes and completes the auth flow", async ({ page }, 
     fullPage: true,
   });
 
+  await page.getByRole("link", { name: "View details" }).first().click();
+  await expect(page).toHaveURL(/\/dashboard\/payments$/);
+  await expect(page.getByRole("heading", { name: /Authenticated payment activity/i })).toBeVisible();
+  await page.getByRole("link", { name: /Risk/i }).click();
+  await expect(page.getByRole("heading", { name: /Authenticated risk reviews/i })).toBeVisible();
+
   await page.getByRole("button", { name: "Log out" }).first().click();
-  await expect(page).toHaveURL(/\/login(?:\?next=%2Fdashboard)?$/);
+  await expect(page).toHaveURL(/\/login(?:\?next=.*)?$/);
   await expect(page.getByRole("heading", { name: /Sign in to your Zoro workspace/i })).toBeVisible();
 
   await page.goto("/signup");
@@ -187,6 +350,15 @@ test("navigates marketing routes and completes the auth flow", async ({ page }, 
   await expect(page).toHaveURL(/\/dashboard$/);
   await expect(page.getByRole("heading", { name: /Welcome back, Mira Chen/i })).toBeVisible();
   await expect(page.getByText(/Northstar Labs/i)).toBeVisible();
+});
+
+test("shows a meaningful 404 route", async ({ page }, testInfo) => {
+  test.skip(testInfo.project.name !== "desktop", "404 handling is route-level and only needs one browser project.");
+
+  const response = await page.goto("/missing-route");
+  expect(response?.status()).toBe(404);
+  await expect(page.getByRole("heading", { name: /This Zoro page does not exist/i })).toBeVisible();
+  await expect(page.getByRole("link", { name: "Go home" })).toHaveAttribute("href", "/");
 });
 
 test("captures the Stripe reference when a reference URL is provided", async ({ page }, testInfo) => {

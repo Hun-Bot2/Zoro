@@ -1,4 +1,5 @@
-import { ArrowUpRight, CheckCircle2, LineChart, Network, ShieldCheck } from "lucide-react";
+import Link from "next/link";
+import { ArrowUpRight, CheckCircle2, ChevronRight, LineChart, Network, ShieldCheck } from "lucide-react";
 
 import {
   ArrowButton,
@@ -30,8 +31,8 @@ export function MarketingRoutePage({ content }: { content: MarketingPageContent 
               {content.copy}
             </p>
             <div className="mt-8 flex flex-wrap gap-3">
-              <ArrowButton href="/signup">{content.primaryAction}</ArrowButton>
-              <ArrowButton href="/dashboard" variant="ghost">
+              <ArrowButton href={content.primaryHref}>{content.primaryAction}</ArrowButton>
+              <ArrowButton href={content.secondaryHref} variant="ghost">
                 {content.secondaryAction}
               </ArrowButton>
             </div>
@@ -70,7 +71,7 @@ export function MarketingRoutePage({ content }: { content: MarketingPageContent 
         </Container>
       </section>
 
-      <SectionShell tone="surface">
+      <SectionShell tone="surface" id={content.slug === "pricing" ? "plans" : `${content.slug}-overview`}>
         <div className="grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
           <SectionHeader
             eyebrow={`${content.eyebrow} overview`}
@@ -91,6 +92,15 @@ export function MarketingRoutePage({ content }: { content: MarketingPageContent 
                     {feature.title}
                   </h2>
                   <p className="mt-4 text-sm leading-7 text-body">{feature.copy}</p>
+                  {feature.href ? (
+                    <Link
+                      href={feature.href}
+                      className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-violet"
+                    >
+                      Explore {feature.eyebrow}
+                      <ChevronRight aria-hidden="true" className="h-4 w-4" />
+                    </Link>
+                  ) : null}
                 </SurfaceCard>
               );
             })}

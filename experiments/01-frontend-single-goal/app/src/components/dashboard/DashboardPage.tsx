@@ -1,5 +1,6 @@
 "use client";
 
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ArrowUpRight, CheckCircle2, CreditCard, LineChart, LogOut, ShieldCheck } from "lucide-react";
 
@@ -133,28 +134,31 @@ function DashboardContent() {
               icon: CreditCard,
               title: "Payments",
               copy: "Checkout conversion and authorization routes are healthy.",
+              href: "/dashboard/payments",
             },
             {
               icon: ShieldCheck,
               title: "Risk",
               copy: "Risk policies are active across global and platform flows.",
+              href: "/dashboard/risk",
             },
             {
               icon: LineChart,
               title: "Billing",
               copy: "Usage meters and recurring invoices are in sync.",
+              href: "/dashboard/billing",
             },
-          ].map(({ icon: Icon, title, copy }) => (
+          ].map(({ icon: Icon, title, copy, href }) => (
             <SurfaceCard key={title} className="p-5">
               <IconFrame className="text-violet">
                 <Icon aria-hidden="true" className="h-5 w-5" />
               </IconFrame>
               <h2 className="mt-5 text-2xl font-semibold text-title">{title}</h2>
               <p className="mt-3 text-sm leading-6 text-body">{copy}</p>
-              <a href="#" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-violet">
+              <Link href={href} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-violet">
                 View details
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-              </a>
+              </Link>
             </SurfaceCard>
           ))}
         </div>

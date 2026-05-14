@@ -129,9 +129,9 @@ export function HeroCommerceVisual() {
           </div>
           <p className="mt-14 text-xs text-slate-500">Checkout</p>
           <p className="mt-1 text-xl font-semibold text-ink">$148.00</p>
-          <button className="mt-4 h-9 w-full rounded-full bg-ink text-xs font-semibold text-white">
+          <span className="mt-4 flex h-9 w-full items-center justify-center rounded-full bg-ink text-xs font-semibold text-white">
             Pay now
-          </button>
+          </span>
         </div>
       </div>
     </div>

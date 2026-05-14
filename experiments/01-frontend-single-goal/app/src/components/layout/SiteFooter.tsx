@@ -24,12 +24,14 @@ export function SiteFooter() {
         <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-4">
           {footerColumns.map((column) => (
             <div key={column.heading}>
-              <h3 className="text-sm font-semibold text-title">{column.heading}</h3>
+              <Link href={column.href} className="text-sm font-semibold text-title transition hover:text-violet">
+                {column.heading}
+              </Link>
               <ul className="mt-4 space-y-3">
                 {column.links.map((link) => (
-                  <li key={link}>
-                    <Link href="/resources" className="text-sm text-body transition hover:text-title">
-                      {link}
+                  <li key={link.href}>
+                    <Link href={link.href} className="text-sm text-body transition hover:text-title">
+                      {link.label}
                     </Link>
                   </li>
                 ))}

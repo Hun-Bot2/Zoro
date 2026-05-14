@@ -6,6 +6,7 @@ import {
   PlayCircle,
   Search,
 } from "lucide-react";
+import Link from "next/link";
 
 import {
   ArrowButton,
@@ -77,7 +78,7 @@ function Hero() {
           </p>
           <div className="mt-7 flex flex-wrap items-center gap-3">
             <ArrowButton href="/signup">Start now</ArrowButton>
-            <ArrowButton href="/solutions" variant="ghost">
+            <ArrowButton href="/company/contact" variant="ghost">
               Contact sales
             </ArrowButton>
           </div>
@@ -120,37 +121,48 @@ function ProductSuite() {
       </div>
 
       <div className="mt-12 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-        {productCards.map(({ icon: Icon, eyebrow, title, copy, accent, stats }, index) => (
-          <SurfaceCard
+        {productCards.map(({ icon: Icon, eyebrow, href, title, copy, accent, stats }, index) => (
+          <Link
             key={title}
-            as="article"
-            className="group p-5 transition duration-300 hover:-translate-y-1 hover:shadow-stripe"
+            href={href}
+            aria-label={`Explore ${eyebrow}`}
+            data-testid="product-card-link"
+            className="block rounded-[28px] focus:outline-none focus-visible:ring-2 focus-visible:ring-violet focus-visible:ring-offset-2 focus-visible:ring-offset-page"
           >
-            <div className={cn("mb-5 h-2 rounded-full bg-gradient-to-r", accent)} />
-            <div className="flex items-start justify-between gap-5">
-              <div>
-                <p className="text-sm font-semibold text-violet">{eyebrow}</p>
-                <h3 className="mt-3 text-2xl font-semibold leading-tight text-title">{title}</h3>
+            <SurfaceCard
+              as="article"
+              className="group h-full p-5 transition duration-300 hover:-translate-y-1 hover:shadow-stripe"
+            >
+              <div className={cn("mb-5 h-2 rounded-full bg-gradient-to-r", accent)} />
+              <div className="flex items-start justify-between gap-5">
+                <div>
+                  <p className="text-sm font-semibold text-violet">{eyebrow}</p>
+                  <h3 className="mt-3 text-2xl font-semibold leading-tight text-title">{title}</h3>
+                </div>
+                <IconFrame>
+                  <Icon aria-hidden="true" className="h-5 w-5" />
+                </IconFrame>
               </div>
-              <IconFrame>
-                <Icon aria-hidden="true" className="h-5 w-5" />
-              </IconFrame>
-            </div>
-            <p className="mt-4 text-sm leading-7 text-body">{copy}</p>
-            <div className="mt-5 flex flex-wrap gap-2">
-              {stats.map((stat) => (
-                <span key={stat} className="rounded-full bg-surface-muted px-3 py-1 text-xs font-semibold text-muted">
-                  {stat}
-                </span>
-              ))}
-            </div>
-            {index === 0 ? <PaymentsMiniVisual /> : null}
-            {index === 1 ? <BillingMiniVisual /> : null}
-            {index === 2 ? <AgenticMiniVisual /> : null}
-            {index === 3 ? <IssuingMiniVisual /> : null}
-            {index === 4 ? <MoneyMovementMiniVisual /> : null}
-            {index === 5 ? <PlatformMiniVisual /> : null}
-          </SurfaceCard>
+              <p className="mt-4 text-sm leading-7 text-body">{copy}</p>
+              <div className="mt-5 flex flex-wrap gap-2">
+                {stats.map((stat) => (
+                  <span key={stat} className="rounded-full bg-surface-muted px-3 py-1 text-xs font-semibold text-muted">
+                    {stat}
+                  </span>
+                ))}
+              </div>
+              {index === 0 ? <PaymentsMiniVisual /> : null}
+              {index === 1 ? <BillingMiniVisual /> : null}
+              {index === 2 ? <AgenticMiniVisual /> : null}
+              {index === 3 ? <IssuingMiniVisual /> : null}
+              {index === 4 ? <MoneyMovementMiniVisual /> : null}
+              {index === 5 ? <PlatformMiniVisual /> : null}
+              <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-violet">
+                Open {eyebrow}
+                <ChevronRight aria-hidden="true" className="h-4 w-4" />
+              </span>
+            </SurfaceCard>
+          </Link>
         ))}
       </div>
     </SectionShell>
@@ -216,10 +228,10 @@ function BusinessScale() {
                   <p className="mt-1 text-xs leading-5 text-muted">{study.labelB}</p>
                 </div>
               </div>
-              <a href="#" className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-violet">
+              <Link href={study.href} className="mt-6 inline-flex items-center gap-2 text-sm font-semibold text-violet">
                 Read the story
                 <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-              </a>
+              </Link>
             </div>
           </SurfaceCard>
         ))}
@@ -257,17 +269,17 @@ function DeveloperInfrastructure() {
       </div>
 
       <div className="mt-12 grid gap-4 md:grid-cols-3">
-        {integrationPaths.map(({ icon: Icon, title, copy }) => (
+        {integrationPaths.map(({ icon: Icon, title, copy, href }) => (
           <SurfaceCard key={title} as="article" className="p-5">
             <IconFrame className="text-violet">
               <Icon aria-hidden="true" className="h-5 w-5" />
             </IconFrame>
             <h3 className="mt-5 text-xl font-semibold text-title">{title}</h3>
             <p className="mt-3 text-sm leading-6 text-body">{copy}</p>
-            <a href="#" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-violet">
+            <Link href={href} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-violet">
               Get started
               <ChevronRight aria-hidden="true" className="h-4 w-4" />
-            </a>
+            </Link>
           </SurfaceCard>
         ))}
       </div>
@@ -296,10 +308,10 @@ function NewsAndCta() {
                 <p className="text-sm font-semibold text-violet">{item.label}</p>
                 <h3 className="mt-2 text-xl font-semibold leading-tight text-title">{item.title}</h3>
                 <p className="mt-3 text-sm leading-6 text-body">{item.copy}</p>
-                <a href="#" className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-violet">
+                <Link href={item.href} className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-violet">
                   Read more
                   <ArrowUpRight aria-hidden="true" className="h-4 w-4" />
-                </a>
+                </Link>
               </div>
             </SurfaceCard>
           ))}
@@ -320,7 +332,7 @@ function NewsAndCta() {
               <ArrowButton href="/signup" variant="light">
                 Start now
               </ArrowButton>
-              <ArrowButton href="/solutions" variant="ghost" className="text-white hover:text-cyan-200">
+              <ArrowButton href="/company/contact" variant="ghost" className="text-white hover:text-cyan-200">
                 Contact sales
               </ArrowButton>
             </div>

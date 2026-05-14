@@ -36,6 +36,7 @@ export const productCards = [
   {
     icon: CreditCard,
     eyebrow: "Payments",
+    href: "/products/payments",
     title: "Accept and optimize payments globally",
     copy:
       "Cards, wallets, bank debits, local methods, and in-person payment flows share one orchestration layer.",
@@ -45,6 +46,7 @@ export const productCards = [
   {
     icon: Repeat2,
     eyebrow: "Billing",
+    href: "/products/billing",
     title: "Launch every pricing model from one catalog",
     copy:
       "Subscriptions, usage meters, credits, trials, and one-off invoices stay synchronized across teams.",
@@ -54,6 +56,7 @@ export const productCards = [
   {
     icon: Sparkles,
     eyebrow: "Agentic commerce",
+    href: "/products/agentic-commerce",
     title: "Make buying available wherever intent appears",
     copy:
       "Expose secure checkout sessions to agents, marketplaces, and embedded storefronts without replatforming.",
@@ -63,6 +66,7 @@ export const productCards = [
   {
     icon: WalletCards,
     eyebrow: "Issuing",
+    href: "/products/issuing",
     title: "Create programmable cards for teams and customers",
     copy:
       "Control spend, authorization rules, and reconciliation from the same financial data model.",
@@ -72,6 +76,7 @@ export const productCards = [
   {
     icon: Landmark,
     eyebrow: "Money movement",
+    href: "/products/treasury",
     title: "Move balances across borders and ledgers",
     copy:
       "Payouts, treasury accounts, stablecoin rails, and bank partners connect through one operations surface.",
@@ -81,6 +86,7 @@ export const productCards = [
   {
     icon: Blocks,
     eyebrow: "Platforms",
+    href: "/products/connect",
     title: "Embed payments into a complete operating system",
     copy:
       "Onboard sellers, split funds, manage risk, and monetize financial services from flexible components.",
@@ -111,6 +117,7 @@ export const commerceStats = [
 export const caseStudies = [
   {
     company: "Hearth Retail",
+    href: "/resources/hearth-retail",
     title: "Unified online and in-store payments in 22 countries.",
     metricA: "44%",
     labelA: "faster reconciliation",
@@ -120,6 +127,7 @@ export const caseStudies = [
   },
   {
     company: "Atlas Market",
+    href: "/resources/atlas-market",
     title: "Scaled marketplace onboarding without rebuilding risk tools.",
     metricA: "18 min",
     labelA: "median seller activation",
@@ -129,6 +137,7 @@ export const caseStudies = [
   },
   {
     company: "PulseAI",
+    href: "/resources/pulse-ai",
     title: "Moved from seat pricing to precise usage-based billing.",
     metricA: "6 weeks",
     labelA: "to launch",
@@ -160,16 +169,19 @@ export const integrationPaths = [
   {
     icon: TerminalSquare,
     title: "Build with APIs",
+    href: "/developers/api-reference",
     copy: "Create custom checkout, platform, treasury, and billing flows.",
   },
   {
     icon: Layers3,
     title: "Use components",
+    href: "/developers/components",
     copy: "Drop embeddable onboarding, payment, and reporting surfaces into your product.",
   },
   {
     icon: BadgeCheck,
     title: "Operate no-code",
+    href: "/developers/no-code",
     copy: "Configure invoices, payment links, tax, and reporting from a dashboard.",
   },
 ];
@@ -177,16 +189,19 @@ export const integrationPaths = [
 export const newsItems = [
   {
     label: "Annual letter",
+    href: "/resources/annual-letter",
     title: "New economic patterns are emerging across internet businesses.",
     copy: "Fresh data from software, retail, marketplaces, and AI products shows faster global expansion.",
   },
   {
     label: "Product update",
+    href: "/resources/product-update",
     title: "Usage meters now sync with contracts, credits, and revenue reports.",
     copy: "Finance and product teams can iterate on pricing without stitching together parallel systems.",
   },
   {
     label: "Guide",
+    href: "/resources/platform-guide",
     title: "How platforms add embedded financial services responsibly.",
     copy: "A practical operating model for onboarding, compliance, risk review, and monetization.",
   },
@@ -195,19 +210,51 @@ export const newsItems = [
 export const footerColumns = [
   {
     heading: "Products",
-    links: ["Payments", "Billing", "Connect", "Issuing", "Treasury", "Radar"],
+    href: "/products",
+    links: [
+      { label: "Payments", href: "/products/payments" },
+      { label: "Billing", href: "/products/billing" },
+      { label: "Connect", href: "/products/connect" },
+      { label: "Issuing", href: "/products/issuing" },
+      { label: "Treasury", href: "/products/treasury" },
+      { label: "Radar", href: "/products/radar" },
+    ],
   },
   {
     heading: "Solutions",
-    links: ["Enterprises", "Startups", "Marketplaces", "SaaS", "Retail", "AI companies"],
+    href: "/solutions",
+    links: [
+      { label: "Enterprises", href: "/solutions/enterprises" },
+      { label: "Startups", href: "/solutions/startups" },
+      { label: "Marketplaces", href: "/solutions/marketplaces" },
+      { label: "SaaS", href: "/solutions/saas" },
+      { label: "Retail", href: "/solutions/retail" },
+      { label: "AI companies", href: "/solutions/ai-companies" },
+    ],
   },
   {
     heading: "Developers",
-    links: ["Documentation", "API reference", "SDKs", "Status", "Changelog", "Support"],
+    href: "/developers",
+    links: [
+      { label: "Documentation", href: "/developers/documentation" },
+      { label: "API reference", href: "/developers/api-reference" },
+      { label: "SDKs", href: "/developers/sdks" },
+      { label: "Status", href: "/developers/status" },
+      { label: "Changelog", href: "/developers/changelog" },
+      { label: "Support", href: "/developers/support" },
+    ],
   },
   {
     heading: "Company",
-    links: ["Customers", "Partners", "Newsroom", "Careers", "Contact", "Privacy"],
+    href: "/company",
+    links: [
+      { label: "Customers", href: "/company/customers" },
+      { label: "Partners", href: "/company/partners" },
+      { label: "Newsroom", href: "/company/newsroom" },
+      { label: "Careers", href: "/company/careers" },
+      { label: "Contact", href: "/company/contact" },
+      { label: "Privacy", href: "/company/privacy" },
+    ],
   },
 ];
 

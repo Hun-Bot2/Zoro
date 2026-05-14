@@ -6,6 +6,16 @@ The `app/` directory contains a production-oriented Stripe-inspired landing page
 
 The current implementation includes a tokenized component system, responsive light and dark themes, persisted theme switching, multi-page SaaS routes, simulated client-side authentication, and Playwright visual captures for the main product flows.
 
+## Route Structure
+
+- Core pages: `/`, `/products`, `/solutions`, `/developers`, `/resources`, `/pricing`, `/company`, `/login`, `/signup`, `/dashboard`
+- Product details: `/products/payments`, `/products/billing`, `/products/agentic-commerce`, `/products/connect`, `/products/issuing`, `/products/treasury`, `/products/radar`
+- Solution details: `/solutions/enterprises`, `/solutions/startups`, `/solutions/marketplaces`, `/solutions/saas`, `/solutions/retail`, `/solutions/ai-companies`
+- Developer details: `/developers/documentation`, `/developers/api-reference`, `/developers/sdks`, `/developers/components`, `/developers/no-code`, `/developers/status`, `/developers/changelog`, `/developers/support`
+- Resource details: `/resources/annual-letter`, `/resources/product-update`, `/resources/platform-guide`, `/resources/hearth-retail`, `/resources/atlas-market`, `/resources/pulse-ai`, `/resources/latest-report`
+- Company details: `/company/customers`, `/company/partners`, `/company/newsroom`, `/company/careers`, `/company/contact`, `/company/privacy`
+- Protected dashboard details: `/dashboard/payments`, `/dashboard/risk`, `/dashboard/billing`
+
 ## Run
 
 ```bash

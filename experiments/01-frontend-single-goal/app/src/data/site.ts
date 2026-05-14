@@ -14,11 +14,14 @@ export type MarketingPageContent = {
   metric: string;
   metricLabel: string;
   primaryAction: string;
+  primaryHref: string;
   secondaryAction: string;
+  secondaryHref: string;
   features: Array<{
     eyebrow: string;
     title: string;
     copy: string;
+    href?: string;
   }>;
   proof: Array<{
     value: string;
@@ -36,22 +39,27 @@ export const marketingPages: Record<MarketingPageContent["slug"], MarketingPageC
     metric: "12",
     metricLabel: "integrated product primitives",
     primaryAction: "Explore products",
+    primaryHref: "/products/payments",
     secondaryAction: "View dashboard",
+    secondaryHref: "/dashboard",
     features: [
       {
         eyebrow: "Payments",
         title: "Authorize, route, and optimize every checkout.",
         copy: "Cards, wallets, bank rails, and local methods share consistent data and risk controls.",
+        href: "/products/payments",
       },
       {
         eyebrow: "Billing",
         title: "Launch subscriptions, usage pricing, and credits faster.",
         copy: "Catalogs, invoices, metering, revenue recovery, and tax state move together.",
+        href: "/products/billing",
       },
       {
         eyebrow: "Financial accounts",
         title: "Embed money movement into your product.",
         copy: "Issue cards, hold balances, trigger payouts, and reconcile ledger events in one place.",
+        href: "/products/treasury",
       },
     ],
     proof: [
@@ -69,22 +77,27 @@ export const marketingPages: Record<MarketingPageContent["slug"], MarketingPageC
     metric: "6",
     metricLabel: "business segments supported",
     primaryAction: "Find a solution",
+    primaryHref: "/solutions/enterprises",
     secondaryAction: "Talk to sales",
+    secondaryHref: "/company/contact",
     features: [
       {
         eyebrow: "Enterprise",
         title: "Modernize global payments without replatforming.",
         copy: "Consolidate routing, risk, finance reporting, and local payment method expansion.",
+        href: "/solutions/enterprises",
       },
       {
         eyebrow: "Platforms",
         title: "Onboard sellers and monetize embedded finance.",
         copy: "KYC, payouts, disputes, card issuing, and seller dashboards fit into your product.",
+        href: "/solutions/marketplaces",
       },
       {
         eyebrow: "AI commerce",
         title: "Turn intent into safe agentic checkout.",
         copy: "Create controlled buying sessions, verify identity, and monitor transactions in real time.",
+        href: "/solutions/ai-companies",
       },
     ],
     proof: [
@@ -102,22 +115,27 @@ export const marketingPages: Record<MarketingPageContent["slug"], MarketingPageC
     metric: "500M+",
     metricLabel: "normalized events daily",
     primaryAction: "Read the docs",
+    primaryHref: "/developers/documentation",
     secondaryAction: "Open console",
+    secondaryHref: "/dashboard",
     features: [
       {
         eyebrow: "APIs",
         title: "Build custom flows from stable primitives.",
         copy: "Payments, accounts, invoices, identity, risk, and ledger objects share consistent patterns.",
+        href: "/developers/api-reference",
       },
       {
         eyebrow: "Components",
         title: "Drop secure surfaces into your app.",
         copy: "Hosted onboarding, payment elements, pricing tables, and embedded reporting reduce build time.",
+        href: "/developers/components",
       },
       {
         eyebrow: "Operations",
         title: "Debug, replay, and observe production behavior.",
         copy: "Trace requests, inspect event streams, and monitor latency without leaving the console.",
+        href: "/developers/status",
       },
     ],
     proof: [
@@ -135,22 +153,27 @@ export const marketingPages: Record<MarketingPageContent["slug"], MarketingPageC
     metric: "42",
     metricLabel: "operating guides and reports",
     primaryAction: "Browse resources",
+    primaryHref: "/resources/annual-letter",
     secondaryAction: "Latest report",
+    secondaryHref: "/resources/latest-report",
     features: [
       {
         eyebrow: "Reports",
         title: "Track internet economy benchmarks.",
         copy: "Compare payment conversion, billing retention, and global expansion patterns by segment.",
+        href: "/resources/latest-report",
       },
       {
         eyebrow: "Guides",
         title: "Design safer money movement workflows.",
         copy: "Practical checklists for onboarding, compliance, fraud review, and finance operations.",
+        href: "/resources/platform-guide",
       },
       {
         eyebrow: "Customer stories",
         title: "See how businesses scale from launch to global operations.",
         copy: "Case studies connect product decisions to measurable revenue and operations outcomes.",
+        href: "/company/customers",
       },
     ],
     proof: [
@@ -168,7 +191,9 @@ export const marketingPages: Record<MarketingPageContent["slug"], MarketingPageC
     metric: "2.9%",
     metricLabel: "starting card processing rate",
     primaryAction: "Start now",
+    primaryHref: "/signup",
     secondaryAction: "Compare plans",
+    secondaryHref: "/pricing#plans",
     features: [
       {
         eyebrow: "Launch",
